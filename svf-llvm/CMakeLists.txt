@@ -1,8 +1,10 @@
 # To support both in- and out-of-source builds, we check for the presence of the
 # add_llvm_loadable_module command. - if this command is not present, we are
 # building out-of-source
+
 if(NOT COMMAND add_llvm_library)
-  find_package(LLVM REQUIRED CONFIG HINTS "${LLVM_DIR}")
+  #find_package(LLVM REQUIRED CONFIG HINTS "${LLVM_DIR}")
+  find_package(LLVM 14 REQUIRED CONFIG)
 
   message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
   message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
