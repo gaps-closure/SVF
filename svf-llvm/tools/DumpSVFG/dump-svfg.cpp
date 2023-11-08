@@ -61,7 +61,8 @@ std::string nodeKindToString(SVF::s64_t kind) {
         return "FPOUT";
     case VFGNode::NPtr:
         return "NPtr";
-    case VFGNode::DummyVProp:
+    // case VFGNode::DummyVProp:
+    default:
         return "DummyVProp";
     }
 }  
@@ -73,7 +74,7 @@ int main(int argc, char ** argv)
 
     SVFModule* svfModule = LLVMModuleSet::buildSVFModule(llModules);
 
-    auto mset = LLVMModuleSet::getLLVMModuleSet();
+    // auto mset = LLVMModuleSet::getLLVMModuleSet();
 
 
     /// Build Program Assignment Graph (SVFIR)
@@ -94,10 +95,11 @@ int main(int argc, char ** argv)
     {
         auto id = pair.first;
         auto node = pair.second;
+        auto value = node->getValue() ? node->getValue()->toString() : "";
         nodeDump 
             << id 
             << "," << nodeKindToString(node->getNodeKind()) 
-            << ",'" << node->getValue() << "'" << "\n";
+            << ",'" << value << "'" << "\n";
 
         for(auto edge : node->getOutEdges())
         {
